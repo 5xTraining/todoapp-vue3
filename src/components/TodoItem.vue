@@ -1,15 +1,25 @@
-<script setup></script>
+<script>
+export default {
+  props: ["id", "title", "completed"],
+  methods: {
+    toggleComplete() {
+      this.$emit("toggleComplete", this.id)
+    },
+    removeItem() {
+      this.$emit("removeItem", this.id)
+    },
+  },
+}
+</script>
 
 <template>
   <li class="flex items-center justify-between py-6 border-b">
     <div class="flex items-center gap-3">
-      <input type="checkbox" id="todo_id_1" class="checkbox" />
-      <label for="todo_id_1" class="text-xl cursor-pointer"
-        >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Asperiores nemo explicabo
-      </label>
+      <input @click="toggleComplete" type="checkbox" :id="id" class="checkbox" />
+      <label :for="id" :class="['text-xl', 'cursor-pointer', completed ? 'line-through' : '']">{{ title }} </label>
     </div>
     <div>
-      <button class="p-2 hover:text-white hover:bg-neutral">
+      <button @click.prevent="removeItem" class="p-2 hover:text-white hover:bg-neutral">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
           <path
             stroke-linecap="round"
